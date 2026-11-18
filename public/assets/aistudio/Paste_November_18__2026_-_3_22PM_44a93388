@@ -1,0 +1,1399 @@
+# BUILDFlow – SUPERVISOR / FOREMAN DASHBOARD
+## Complete UI/UX and Functional Development Prompt for Google AI Studio
+
+Build a complete, professional, production-style **Supervisor / Foreman Dashboard** for BuildFlow, a construction workforce management and site operations SaaS platform.
+
+IMPORTANT: Build this dashboard from scratch. Do not reuse the previous dashboard UI or create a generic admin template. Design it specifically for construction supervisors and foremen who work at actual construction sites.
+
+The dashboard must be responsive, mobile-first, intuitive, fast to use and suitable for real construction operations.
+
+The main purpose of this dashboard is to help supervisors manage:
+
+1. Assigned workforce and crew members.
+2. Daily attendance and attendance verification.
+3. Daily task allocation and progress.
+4. Worker availability and work assignments.
+5. Material and purchase requests.
+6. Site-level operational updates.
+7. Safety incidents and observations.
+8. Communication with the Site Manager.
+9. Daily reports and activity records.
+
+---
+
+# 1. IMPORTANT BUSINESS LOGIC – DYNAMIC ROLE CONFIGURATION
+
+BuildFlow supports small, medium and large construction companies.
+
+The Supervisor dashboard must dynamically adapt to the permissions configured by the Company Admin.
+
+### Small companies
+
+In small companies, there might not be a separate Supervisor.
+
+The Site Manager may perform both roles.
+
+In this situation:
+- The Site Manager can manage the assigned crew.
+- The Site Manager can mark and verify attendance according to company policy.
+- The Site Manager can allocate daily tasks.
+- The Site Manager can submit purchase requests.
+- The Site Manager can update daily site progress.
+- The Site Manager can perform all permitted supervisor operations.
+
+Do not force a company to create a separate Supervisor account.
+
+### Medium companies
+
+The Site Manager manages the overall site.
+
+The Supervisor:
+- Manages assigned workers.
+- Records attendance exceptions.
+- Allocates daily work.
+- Monitors task completion.
+- Submits material and purchase requests.
+- Sends daily reports to the Site Manager.
+
+The Site Manager reviews and approves actions where required.
+
+### Large companies
+
+Support multiple supervisors under one Site Manager.
+
+For example:
+
+Project: Residential Tower Construction
+
+Site Manager: Rajesh Kumar
+
+Supervisors:
+- Supervisor A – Civil Construction Crew
+- Supervisor B – Electrical Crew
+- Supervisor C – Plumbing Crew
+- Supervisor D – Finishing Crew
+
+Each Supervisor should only see the workforce, tasks and operations assigned to them.
+
+### Role configuration rules
+
+The Company Admin must control:
+- Whether the company uses separate supervisors.
+- Whether Site Managers can perform supervisor duties.
+- Which supervisor manages which crew.
+- Which sites and projects each supervisor can access.
+- Whether attendance requires additional approval.
+- Whether purchases require Site Manager approval.
+- Whether supervisors can edit submitted records.
+- Whether supervisors can view worker wage information.
+
+Never allow users to change their own permissions.
+
+Enforce permissions on the backend, not only by hiding frontend buttons.
+
+The interface should automatically display the correct capabilities based on the logged-in user's effective permissions.
+
+---
+
+# 2. DESIGN DIRECTION
+
+Create a premium construction operations interface.
+
+Design references:
+- Linear for clean navigation.
+- Modern field-service applications for mobile usability.
+- Professional construction management software for operational data.
+- Modern ERP interfaces for structured information.
+
+### Visual design
+
+Primary colours:
+- Dark navy: #101F35
+- Primary blue: #2563EB
+- Construction orange: #F59E0B
+- Background: #F5F7FA
+- Card background: #FFFFFF
+- Main text: #172B4D
+- Secondary text: #64748B
+- Success: #16A34A
+- Danger: #DC2626
+
+Use:
+- Inter typography.
+- Lucide icons.
+- Clean cards.
+- Subtle shadows.
+- Professional tables.
+- Clear status indicators.
+- Consistent spacing.
+- Smooth transitions.
+- Modern charts where useful.
+
+Avoid:
+- Excessive gradients.
+- Oversized cards.
+- Too many colours.
+- Unnecessary animations.
+- Generic dashboard layouts.
+- Crowded tables.
+- Desktop-only interactions.
+
+This is an operational application, not a marketing website.
+
+---
+
+# 3. RESPONSIVE APPLICATION LAYOUT
+
+The dashboard must work properly on:
+
+- Desktop: 1440px and above.
+- Laptop: 1024px–1366px.
+- Tablet: 768px–1023px.
+- Mobile: 360px–767px.
+
+### Desktop layout
+
+Create:
+- Left sidebar.
+- Top navigation bar.
+- Main dashboard workspace.
+- Notifications.
+- User profile and role.
+- Current project and site selector.
+
+Sidebar should be collapsible.
+
+### Mobile layout
+
+Mobile is extremely important.
+
+Supervisors will mostly use this dashboard on their phones while working at construction sites.
+
+Create:
+- Compact top navigation.
+- Project/site selector.
+- Mobile-friendly dashboard cards.
+- Bottom navigation with important sections.
+- Slide-out navigation drawer for additional modules.
+- Full-screen mobile forms where appropriate.
+- Large touch-friendly buttons.
+- Camera and document upload actions.
+- Fixed primary action button when useful.
+
+Do not simply shrink the desktop dashboard to mobile dimensions.
+
+Redesign the mobile layout for actual field usage.
+
+Ensure no horizontal overflow at 360px, 390px and 430px screen widths.
+
+---
+
+# 4. SIDEBAR NAVIGATION
+
+Create the following navigation structure.
+
+### WORKSPACE
+1. Dashboard
+2. My Site
+3. My Crew
+
+### WORKFORCE OPERATIONS
+4. Crew Attendance
+5. Daily Tasks
+6. Worker Availability
+7. Work Progress
+
+### MATERIALS & PURCHASES
+8. Purchase Requests
+9. Material Requirements
+10. Material Receipts
+
+### SITE OPERATIONS
+11. Daily Site Report
+12. Safety & Incidents
+13. Site Documents
+
+### COMMUNICATION
+14. Notifications
+15. Messages / Site Manager Updates
+
+### ACCOUNT
+16. My Profile
+17. Help & Support
+
+Show only the modules that the logged-in user has permission to access.
+
+If the Site Manager is also performing Supervisor responsibilities, show the supervisor operations within the Site Manager dashboard or provide an integrated operational workspace. Do not force the user to switch accounts.
+
+---
+
+# 5. SUPERVISOR DASHBOARD – OVERVIEW
+
+This is the first screen after login.
+
+The dashboard must immediately communicate what the supervisor needs to do today.
+
+### Header
+
+Display:
+
+- Good morning / afternoon / evening.
+- Supervisor name.
+- Assigned project.
+- Assigned construction site.
+- Current date.
+- Shift timing.
+- Site status.
+- Notification icon.
+
+Example:
+
+Good Morning, Suresh!
+
+Project: Green Valley Residential Project
+
+Site: Tower A – Construction Zone
+
+Date: 18 November 2026
+
+### Today's operational summary
+
+Create the following KPI cards:
+
+1. Assigned Workers
+2. Present Today
+3. Absent Today
+4. Attendance Pending Review
+5. Tasks Assigned
+6. Tasks Completed
+7. Pending Purchase Requests
+8. Safety Issues
+
+Example mock data:
+
+- Assigned Workers: 42
+- Present: 35
+- Absent: 4
+- Pending Attendance Review: 3
+- Tasks Assigned: 12
+- Completed Tasks: 7
+- Pending Purchases: 2
+- Open Safety Issues: 1
+
+These must be mock records clearly identified as sample data.
+
+### Today's action centre
+
+This is one of the most important sections.
+
+Display operational actions requiring attention:
+
+- Workers with missing check-in.
+- Workers with missing checkout.
+- Workers marked absent.
+- Tasks not started.
+- Overdue tasks.
+- Material requests awaiting review.
+- Deliveries awaiting receipt verification.
+- Safety observations requiring attention.
+- Reports not yet submitted.
+
+Each item must have a clear action.
+
+Examples:
+- Review attendance.
+- Open task.
+- View purchase request.
+- Record material receipt.
+- Resolve safety issue.
+
+### Crew attendance snapshot
+
+Show:
+- Total assigned workers.
+- Present.
+- Absent.
+- Late.
+- On leave.
+- Not yet checked in.
+
+Use a simple progress bar and status distribution.
+
+### Daily work summary
+
+Display today's assigned activities.
+
+Example:
+
+| Activity | Assigned Crew | Status |
+|---|---:|---|
+| Foundation reinforcement | 8 | In Progress |
+| Concrete preparation | 6 | Completed |
+| Brickwork | 10 | In Progress |
+| Electrical conduit installation | 5 | Not Started |
+| Material unloading | 4 | Pending |
+
+Allow supervisors to open each task.
+
+### Site updates
+
+Show the latest updates from the Site Manager.
+
+Examples:
+- Concrete delivery scheduled for 11 AM.
+- Tower B work postponed.
+- Safety inspection at 3 PM.
+- Additional workers required tomorrow.
+
+### Quick actions
+
+Create prominent quick-action buttons:
+
+- Mark Attendance Exception
+- Assign New Task
+- Add Worker to Crew
+- Submit Purchase Request
+- Record Material Receipt
+- Create Daily Report
+- Report Safety Issue
+
+These must open functional forms or workflows.
+
+---
+
+# 6. MY SITE MODULE
+
+Create a dedicated site information page.
+
+Display:
+
+- Project name.
+- Site name.
+- Site address.
+- Site manager.
+- Assigned supervisor.
+- Assigned department or work category.
+- Working hours.
+- Shift details.
+- Site contact information.
+- Site operational status.
+- Site safety information.
+
+### Site overview
+
+Show:
+- Project progress.
+- Today's work progress.
+- Total assigned workers.
+- Today's attendance.
+- Open tasks.
+- Pending materials.
+- Site alerts.
+
+### Site location
+
+Show a map or location panel using actual configured site coordinates when available.
+
+If using sample data, label it clearly as demonstration data.
+
+Never display fabricated GPS coordinates as actual live locations.
+
+### Site information permissions
+
+Supervisors should only see assigned sites.
+
+They must not modify important project or site configuration unless explicitly authorized.
+
+---
+
+# 7. MY CREW – WORKER MANAGEMENT
+
+This module is central to the supervisor's work.
+
+Create a professional crew management interface.
+
+### Crew directory
+
+Display workers assigned to the supervisor.
+
+Each worker card should contain:
+
+- Profile photo.
+- Employee ID.
+- Worker name.
+- Designation.
+- Skill category.
+- Contact number, subject to permission.
+- Assigned site.
+- Current attendance status.
+- Today's assigned task.
+- Employment type.
+- Availability.
+
+Example worker categories:
+
+- Mason
+- Helper
+- Carpenter
+- Electrician
+- Plumber
+- Welder
+- Painter
+- Steel Fixer
+- Machine Operator
+- Driver
+- General Labour
+
+### Filters
+
+Provide:
+- All workers.
+- Present.
+- Absent.
+- Late.
+- On leave.
+- Not checked in.
+- Skilled workers.
+- Unskilled workers.
+- Contractors.
+- Specific trade.
+
+### Worker profile
+
+Clicking a worker should open a detailed profile.
+
+Tabs:
+
+1. Overview
+2. Attendance
+3. Assigned Tasks
+4. Work History
+5. Documents (permission controlled)
+6. Activity
+
+Display the worker's:
+- Basic information.
+- Designation.
+- Skill.
+- Assigned project and site.
+- Supervisor.
+- Attendance history.
+- Current tasks.
+- Previous task records.
+- Work status.
+
+Do not expose confidential salary, bank details, identity documents or private HR information by default.
+
+### Crew assignment
+
+If authorized, allow the supervisor to request or assign workers to their crew.
+
+A worker reassignment must follow company approval rules.
+
+Preserve historical assignments.
+
+Never silently transfer a worker from one supervisor or site to another.
+
+---
+
+# 8. CREW ATTENDANCE MANAGEMENT
+
+Create a dedicated attendance workspace.
+
+Supervisors must be able to review the attendance of their assigned crew.
+
+### Attendance overview
+
+Display:
+
+- Total assigned workers.
+- Checked in.
+- Not checked in.
+- Absent.
+- Late.
+- Missing checkout.
+- Attendance exceptions.
+
+### Attendance records
+
+Each row should show:
+
+- Worker name.
+- Employee ID.
+- Check-in time.
+- Check-in photo status.
+- GPS verification status.
+- Site/geofence status.
+- Check-out time.
+- Attendance status.
+- Exception reason.
+
+### Attendance verification
+
+Allow supervisors to:
+- Review attendance.
+- Identify missing check-ins.
+- Record attendance exceptions.
+- Submit correction requests.
+- Add remarks.
+- Forward records for approval.
+
+If company policy permits direct supervisor verification, enable it through permissions.
+
+Otherwise, send corrections to the Site Manager or HR.
+
+Important:
+
+Supervisors must not be able to fabricate employee GPS or selfie verification.
+
+Never create a verified attendance record merely because a supervisor clicked a button.
+
+Keep the original attendance record and preserve correction history.
+
+### Attendance filters
+
+- Today.
+- Yesterday.
+- This week.
+- Custom date range.
+- Worker.
+- Attendance status.
+
+### Mobile attendance interface
+
+Create a fast worker list with:
+
+- Worker name.
+- Attendance status.
+- Check-in time.
+- Exception indicator.
+- Quick review action.
+
+Make it usable with one hand.
+
+---
+
+# 9. DAILY TASK ALLOCATION
+
+This is another core feature.
+
+Supervisors must be able to allocate work to individual workers or entire crews.
+
+### Task creation
+
+Create a task creation form containing:
+
+- Task title.
+- Task description.
+- Project.
+- Site.
+- Work zone or floor.
+- Work category.
+- Priority.
+- Assigned workers or crew.
+- Task start date.
+- Expected completion date.
+- Planned working hours.
+- Required materials.
+- Instructions.
+- Reference images.
+- Attachments.
+- Remarks.
+
+Example:
+
+Task: Ground Floor Brickwork
+
+Location: Tower A – Ground Floor
+
+Crew: Mason Team 1
+
+Assigned Workers: 6
+
+Priority: High
+
+Expected Completion: 20 November 2026
+
+### Task management
+
+Show tasks in:
+- List view.
+- Kanban board.
+- Calendar view.
+
+Task statuses:
+
+1. Draft
+2. Assigned
+3. Accepted
+4. In Progress
+5. Blocked
+6. Completed
+7. Submitted for Review
+8. Approved
+9. Rejected / Rework Required
+
+### Task details
+
+Each task must show:
+
+- Task description.
+- Assigned workers.
+- Task location.
+- Start date.
+- Due date.
+- Progress.
+- Materials required.
+- Instructions.
+- Before-work images.
+- Progress images.
+- Completion evidence.
+- Supervisor remarks.
+- Site Manager comments.
+
+### Progress updates
+
+Supervisors can:
+
+- Update task progress.
+- Add work completed today.
+- Upload progress photos.
+- Record delays.
+- Report material shortages.
+- Report equipment issues.
+- Mark a task blocked.
+- Submit a task for Site Manager review.
+
+A task should not automatically become approved when the supervisor marks it complete.
+
+The Site Manager should be able to review it according to company policy.
+
+### Task progress example
+
+Task: Column Reinforcement
+
+Progress: 65%
+
+Assigned Workers: 8
+
+Completed Today: 4 columns
+
+Remaining: 2 columns
+
+Status: In Progress
+
+---
+
+# 10. WORKER AVAILABILITY
+
+Build a module to understand which workers are available for work.
+
+Display:
+
+- Available workers.
+- Currently working.
+- Assigned to another task.
+- On leave.
+- Absent.
+- Temporarily unavailable.
+
+Allow the supervisor to see available workers before assigning new tasks.
+
+Prevent accidental double assignment to overlapping tasks.
+
+If a worker is assigned to multiple tasks, display a scheduling conflict warning.
+
+Do not allow the supervisor to change approved leave or HR employment status without permission.
+
+---
+
+# 11. PURCHASE REQUEST SUBMISSION
+
+This is an essential construction-specific feature.
+
+Supervisors need to request materials and purchases required at the construction site.
+
+Build a complete purchase request system.
+
+### Purchase request form
+
+Fields:
+
+- Request ID – automatically generated.
+- Project.
+- Construction site.
+- Work zone.
+- Requested by.
+- Request date.
+- Required delivery date.
+- Material category.
+- Material name.
+- Quantity.
+- Unit.
+- Estimated unit price.
+- Estimated total.
+- Supplier preference, if applicable.
+- Reason for purchase.
+- Priority.
+- Additional remarks.
+
+Material examples:
+
+- Cement.
+- Sand.
+- Aggregate.
+- Steel.
+- Bricks.
+- Tiles.
+- Paint.
+- Electrical materials.
+- Plumbing materials.
+- Safety equipment.
+- Tools.
+- Construction consumables.
+
+Allow multiple material line items in a single request.
+
+### Attachments
+
+Allow:
+
+- Bill or quotation upload.
+- Material reference images.
+- Site photographs.
+- Supporting documents.
+
+Show upload previews and allow removing attachments before submission.
+
+### Purchase workflow
+
+Create the following configurable approval flow:
+
+Supervisor submits request.
+
+↓
+
+Site Manager reviews.
+
+↓
+
+Procurement / Company Admin reviews, if required.
+
+↓
+
+Finance approval, if required.
+
+↓
+
+Purchase order or authorized procurement.
+
+↓
+
+Material delivery.
+
+↓
+
+Material receipt verification.
+
+The exact approval chain must be configurable by the Company Admin.
+
+### Purchase request statuses
+
+- Draft.
+- Submitted.
+- Pending Site Manager Review.
+- Pending Procurement.
+- Pending Finance Approval.
+- Approved.
+- Rejected.
+- Ordered.
+- Partially Delivered.
+- Delivered.
+- Receipt Verification Pending.
+- Closed.
+
+### Purchase history
+
+Display:
+- Request ID.
+- Material.
+- Quantity.
+- Estimated amount.
+- Submission date.
+- Request status.
+- Current approver.
+
+Supervisors must not be allowed to approve their own purchase requests unless the company's explicitly configured policy permits it and appropriate audit controls exist.
+
+Submitting a bill or photograph does not mean a purchase has been approved or paid.
+
+---
+
+# 12. MATERIAL RECEIPTS
+
+Create a dedicated material receipt module.
+
+When materials arrive at the site, the authorized person must verify the delivery.
+
+Display:
+
+- Purchase request ID.
+- Purchase order ID, if available.
+- Supplier.
+- Material.
+- Ordered quantity.
+- Delivered quantity.
+- Remaining quantity.
+- Delivery date.
+- Delivery status.
+
+Allow the supervisor to record:
+
+- Received quantity.
+- Damaged quantity.
+- Short quantity.
+- Delivery remarks.
+- Delivery photographs.
+- Challan or delivery document.
+- GPS and timestamp, subject to permission.
+
+Possible statuses:
+
+- Awaiting Delivery.
+- Partially Received.
+- Fully Received.
+- Damaged.
+- Disputed.
+- Pending Verification.
+
+Important business rule:
+
+The supervisor's delivery submission must not automatically increase inventory.
+
+Only the authorized receipt-verification process should create the corresponding inventory transaction.
+
+---
+
+# 13. DAILY SITE REPORT
+
+Create a structured Daily Site Report feature.
+
+Supervisors should submit a report at the end of each working day.
+
+### Daily report fields
+
+- Project.
+- Site.
+- Date.
+- Shift.
+- Total assigned workers.
+- Present workers.
+- Absent workers.
+- Work completed.
+- Tasks in progress.
+- Tasks delayed.
+- Materials consumed.
+- Materials required.
+- Equipment used.
+- Safety observations.
+- Issues and blockers.
+- Tomorrow's planned activities.
+- Supervisor remarks.
+
+### Photo evidence
+
+Allow multiple photographs:
+
+- Work progress.
+- Site conditions.
+- Completed work.
+- Material delivery.
+- Equipment.
+- Safety conditions.
+
+### Report workflow
+
+Supervisor submits report.
+
+↓
+
+Site Manager reviews.
+
+↓
+
+Site Manager accepts or requests correction.
+
+↓
+
+Report is stored in project/site history.
+
+Provide:
+- Draft saving.
+- Submission confirmation.
+- Previous report history.
+- Report details.
+- Export or print option if authorized.
+
+Do not create a fake report automatically.
+
+---
+
+# 14. SAFETY AND INCIDENT REPORTING
+
+Create a simple but useful site safety module.
+
+Supervisors must be able to report:
+
+- Worker injury.
+- Unsafe working conditions.
+- Missing PPE.
+- Equipment hazards.
+- Electrical hazards.
+- Fire risks.
+- Near misses.
+- Other site incidents.
+
+### Incident submission
+
+Fields:
+
+- Incident category.
+- Date and time.
+- Site and work zone.
+- Person involved, if applicable.
+- Description.
+- Severity.
+- Immediate action taken.
+- Photographs.
+- Witness information, subject to permission.
+
+### Incident statuses
+
+- Reported.
+- Under Review.
+- Action Required.
+- Resolved.
+- Closed.
+
+Critical incidents should trigger immediate notifications to designated Site Managers and safety personnel.
+
+Do not allow ordinary supervisors to close critical incidents without authorized review.
+
+---
+
+# 15. SITE DOCUMENTS
+
+Create a document section containing only documents the supervisor is authorized to view.
+
+Examples:
+
+- Site safety instructions.
+- Daily work plans.
+- Approved drawings.
+- Work permits.
+- Construction guidelines.
+- Site notices.
+- Equipment operating instructions.
+
+Allow supervisors to:
+- View documents.
+- Search documents.
+- Download permitted files.
+- Upload operational attachments when authorized.
+
+Use private file storage and secure access.
+
+---
+
+# 16. NOTIFICATIONS AND SITE MANAGER COMMUNICATION
+
+Create a communication centre.
+
+### Notifications
+
+Show:
+
+- New task assignments.
+- Task deadline reminders.
+- Purchase approval updates.
+- Purchase rejections.
+- Material delivery updates.
+- Attendance exceptions.
+- Site Manager announcements.
+- Safety alerts.
+- Daily report feedback.
+
+### Site Manager updates
+
+Allow supervisors to:
+- Read site instructions.
+- View announcements.
+- Reply where enabled.
+- Send operational messages.
+- Escalate site issues.
+
+Do not build an unrestricted public chat.
+
+Keep communication scoped to authorized company, project, site and crew members.
+
+---
+
+# 17. MY PROFILE
+
+Display:
+
+- Profile photo.
+- Name.
+- Employee ID.
+- Designation.
+- Assigned project.
+- Assigned site.
+- Assigned crew.
+- Contact details.
+- Employment information permitted to the user.
+- Effective application roles.
+
+The supervisor should be able to update permitted personal contact details.
+
+Company-controlled information such as role, employment status and assignments must be updated through authorized administration workflows.
+
+---
+
+# 18. REPORTS AND PERFORMANCE
+
+Create a reporting section for supervisors.
+
+Reports should include:
+
+- Daily attendance summary.
+- Weekly crew attendance.
+- Worker task completion.
+- Task delays.
+- Daily work output.
+- Material requests.
+- Material delivery records.
+- Site incident summary.
+- Daily site reports.
+
+Filters:
+
+- Date range.
+- Project.
+- Site.
+- Crew.
+- Worker.
+- Task category.
+
+Display clear charts and export options only where authorized.
+
+Do not expose company-wide financial reports or other supervisors' private records without permission.
+
+---
+
+# 19. APPROVAL AND PERMISSION RULES
+
+Design the application around configurable permissions.
+
+Examples:
+
+| Operation | Supervisor |
+|---|---|
+| View assigned crew | Allowed |
+| View assigned site | Allowed |
+| View assigned attendance | Allowed |
+| Record attendance exceptions | Allowed |
+| Allocate daily tasks | Allowed |
+| Update task progress | Allowed |
+| Submit purchase request | Allowed |
+| Approve own purchase request | Restricted by default |
+| Record material delivery | Permission-based |
+| Verify inventory receipt | Permission-based |
+| Submit daily report | Allowed |
+| View confidential salary details | Restricted |
+| Change employee designation | Restricted |
+| Change company roles | Restricted |
+| Change site configuration | Restricted |
+
+The Company Admin must be able to configure these permissions.
+
+All sensitive operations must be logged.
+
+---
+
+# 20. MOBILE-FIRST FIELD EXPERIENCE
+
+This section is critical.
+
+Build the mobile experience as a real construction-site tool.
+
+### Mobile home screen
+
+Show these items first:
+
+1. Today's site.
+2. Crew attendance.
+3. Pending tasks.
+4. Quick task allocation.
+5. Purchase request.
+6. Daily report.
+
+### Field-friendly interactions
+
+- One-tap access to crew lists.
+- Large buttons.
+- Easy camera access.
+- Fast material request form.
+- Image compression before upload.
+- Upload progress.
+- Save draft.
+- Clear error messages.
+- Offline draft support.
+- Retry failed uploads.
+- Visible synchronization status.
+
+### Offline support
+
+Construction sites may have weak network connectivity.
+
+Allow suitable operations to be saved locally as drafts or queued actions.
+
+When connectivity returns:
+- Synchronize queued actions.
+- Prevent duplicate submissions.
+- Display synchronization status.
+- Resolve conflicting changes safely.
+- Preserve original timestamps and server receipt timestamps.
+
+Do not claim a record has been submitted successfully until the server confirms it.
+
+### GPS and privacy
+
+If location capture is enabled by company policy:
+
+- Capture location only for authorized operational actions or active work sessions.
+- Clearly communicate when location is being captured.
+- Display location accuracy and capture timestamp.
+- Handle unavailable GPS.
+- Handle stale location records.
+- Respect Android and iOS background location restrictions.
+- Do not continuously track users outside authorized working sessions.
+
+---
+
+# 21. INTERACTION REQUIREMENTS
+
+Every visible button must perform a meaningful action.
+
+Implement:
+
+- Working sidebar navigation.
+- Working mobile bottom navigation.
+- Project/site selection.
+- Crew search.
+- Filters.
+- Sorting.
+- Pagination.
+- Task creation.
+- Task assignment.
+- Task progress updates.
+- Attendance review.
+- Purchase request creation.
+- Multiple material line items.
+- File uploads and previews.
+- Material receipt submission.
+- Daily report submission.
+- Safety incident reporting.
+- Notification interactions.
+- Profile editing.
+- Form validation.
+- Confirmation dialogs.
+- Loading states.
+- Empty states.
+- Error states.
+- Success states.
+
+Avoid decorative buttons that do nothing.
+
+Use realistic demonstration data and make it clear when data is simulated.
+
+---
+
+# 22. TECHNICAL ARCHITECTURE
+
+Use:
+
+- React.
+- TypeScript.
+- Vite.
+- Tailwind CSS.
+- shadcn/ui.
+- Lucide React.
+- React Router.
+- TanStack Query.
+- React Hook Form.
+- Zod.
+- Zustand where appropriate.
+- Recharts.
+- Framer Motion for subtle animations.
+
+Build modular components.
+
+Suggested structure:
+
+src/
+  components/
+    layout/
+    dashboard/
+    crew/
+    attendance/
+    tasks/
+    purchases/
+    materials/
+    reports/
+    safety/
+    notifications/
+    shared/
+
+  pages/
+    Dashboard/
+    MySite/
+    MyCrew/
+    Attendance/
+    Tasks/
+    Availability/
+    Purchases/
+    MaterialReceipts/
+    DailyReports/
+    Safety/
+    Documents/
+    Notifications/
+    Profile/
+
+  services/
+    crewService.ts
+    attendanceService.ts
+    taskService.ts
+    purchaseService.ts
+    materialService.ts
+    reportService.ts
+    safetyService.ts
+
+  hooks/
+  types/
+  utils/
+  routes/
+
+Keep business logic outside presentation components.
+
+Prepare service interfaces for future Supabase integration.
+
+Use mock API services for initial UI development.
+
+Do not hardcode demonstration records throughout individual components.
+
+---
+
+# 23. DATABASE-READY DATA MODELS
+
+Prepare TypeScript models for:
+
+- User
+- Company
+- Project
+- Site
+- Department
+- Designation
+- SupervisorAssignment
+- Crew
+- CrewMember
+- Worker
+- Attendance
+- AttendanceException
+- Task
+- TaskAssignment
+- TaskProgress
+- PurchaseRequest
+- PurchaseRequestItem
+- PurchaseAttachment
+- MaterialReceipt
+- SafetyIncident
+- DailySiteReport
+- SiteDocument
+- Notification
+- ApprovalWorkflow
+- ApprovalRecord
+- AuditLog
+
+Every operational record should support appropriate company, project, site and user references.
+
+Use stable IDs.
+
+Preserve historical assignments and status changes.
+
+Prepare all data models for multi-tenant access control.
+
+---
+
+# 24. SECURITY AND DATA ISOLATION
+
+This is a commercial SaaS platform.
+
+Implement the UI and service architecture with the following security requirements:
+
+- Company-level tenant isolation.
+- Project-level access control.
+- Site-level access control.
+- Crew-level access control.
+- Role-based permissions.
+- Server-side authorization.
+- Secure file access.
+- Signed URLs for private documents.
+- Audit logging.
+- Approval history.
+- Input validation.
+- Protection against unauthorized record modification.
+
+A supervisor from Company A must never access records belonging to Company B.
+
+A supervisor assigned to Site A must not automatically access Site B.
+
+Never rely only on frontend filtering for security.
+
+---
+
+# 25. FINAL ACCEPTANCE CRITERIA
+
+The completed dashboard must:
+
+1. Look like a premium commercial construction operations product.
+2. Be mobile-first and fully responsive.
+3. Support both Supervisor and Foreman responsibilities.
+4. Support Site Managers who also perform supervisor duties.
+5. Support multiple supervisors under one Site Manager.
+6. Allow Company Admin-controlled role and permission configuration.
+7. Provide complete crew management.
+8. Provide attendance review and exception handling.
+9. Provide daily task allocation and progress tracking.
+10. Provide purchase request submission.
+11. Provide material receipt workflows.
+12. Provide daily site reporting.
+13. Provide safety incident reporting.
+14. Provide scoped notifications and communication.
+15. Have working interactions and validated forms.
+16. Use realistic construction-specific sample records.
+17. Have a modular architecture ready for Supabase integration.
+18. Never display simulated data as verified real-world data.
+
+## DEVELOPMENT INSTRUCTIONS
+
+First build the complete application shell, responsive navigation and Supervisor Dashboard overview.
+
+Then implement each module with working navigation and realistic mock API operations.
+
+Do not try to create all screens as disconnected static mockups.
+
+Keep one consistent design system throughout the application.
+
+Prioritize mobile field operations, simple workflows and clear information hierarchy.
+
+The final output should feel like a real construction-site operations application that a supervisor can use every day, not a generic admin dashboard.

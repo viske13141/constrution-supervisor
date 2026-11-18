@@ -1,0 +1,6 @@
+{
+  "name": "BuildFlow – Supervisor & Foreman Operations",
+  "description": "Construction workforce management and site operations dashboard for supervisors, foremen, and site managers.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
